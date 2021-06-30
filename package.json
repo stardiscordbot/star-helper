@@ -1,0 +1,24 @@
+{
+  "name": "star-helper-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/star.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stardiscordbot/star-helper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stardiscordbot/star-helper/issues"
+  },
+  "homepage": "https://github.com/stardiscordbot/star-helper#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "eris": "^0.15.1"
+  }
+}
