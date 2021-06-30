@@ -7,7 +7,6 @@ module.exports = class MessageEvent {
   }
 
   async run (message) {
-    const {shorten} = require('isgd')
     const {form,prefix,mon,sup} = require('../config')
     if (message.author.bot) return
 
@@ -26,19 +25,21 @@ module.exports = class MessageEvent {
         dm.createMessage('✅ Sua denúncia foi aprovada pela equipe da starbot, obrigado e parabéns 🥳').then(async msg => {
           global.db.del(args[0])
           const ch = await global.star.getRESTChannel(mon)
-          ch.createMessage(`__**Denúncia Aprovada!**__\n\n- Autor: **${message.author.username}#${message.author.discriminator} (${message.author.id})**\n- ID do formulário: **${args[0]}**`)
+          ch.createMessage(`__**✅ Denúncia Aprovada!**__\n\n- Autor: **${message.author.username}#${message.author.discriminator} (${message.author.id})**\n- ID do formulário: **${args[0]}**`)
         })
+      } else {
+        return message.channel.createMessage(':x: Formulário não encontrado.')
       }
     }
     if (message.channel.type != 1) return
     if (message.content.toLowerCase() === 'denúncia' || message.content.toLowerCase() === 'report') {
       const proto = Math.random().toString(36).slice(2, 10)
       const link = `${form}${proto}`
-      message.channel.createMessage(`✅ Está querendo denunciar algumas pessoas? Vieste ao lugar certo! Para realizar o report basta clicar no formulário!\n> ID do formulário: ||\`${proto}\`||\n\n🔗 Link: ${link}`).then(async msg => {
+      message.channel.createMessage(`✅ Está querendo denunciar algumas pessoas? Vieste ao lugar certo! Para realizar o report basta clicar no formulário!\n\n> 📋 ID do formulário: ||\`${proto}\`||\n\n🔗 Link: ${link}`).then(async msg => {
         global.db.set(proto, message.author.id)
         msg.addReaction(':ES_panda:815580024811814913')
         const ch = await global.star.getRESTChannel(mon)
-        ch.createMessage(`__**Nova Denúncia!**__\n\n- Autor: **${message.author.username}#${message.author.discriminator} (${message.author.id})**\n- ID do formulário: **${proto}**`)
+        ch.createMessage(`__**🔔 <@&${sup}>Nova Denúncia!**__\n\n- Autor: **${message.author.username}#${message.author.discriminator} (${message.author.id})**\n- ID do formulário: **${proto}**`)
       })
     }
   }
